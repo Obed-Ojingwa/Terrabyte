@@ -5,7 +5,7 @@ import { z } from "zod";
 import Link from "next/link";
 import { useRegister } from "@/hooks/useAuth";
 
-const schema = z.object({ first_name: z.string().min(1,"Required"), last_name: z.string().min(1,"Required"), email: z.string().email("Valid email required"), phone: z.string().optional(), password: z.string().min(8,"At least 8 characters"), confirm_password: z.string() }).refine(d=>d.password===d.confirm_password,{message:"Passwords don't match",path:["confirm_password"]});
+const schema = z.object({ first_name: z.string().min(1,"Required"), middle_name: z.string().optional(), last_name: z.string().min(1,"Required"), email: z.string().email("Valid email required"), phone: z.string().min(1,"Required"), password: z.string().min(8,"At least 8 characters"), confirm_password: z.string() }).refine(d=>d.password===d.confirm_password,{message:"Passwords don't match",path:["confirm_password"]});
 type FormData = z.infer<typeof schema>;
 const inputCls = "w-full bg-white/[0.04] border border-white/10 focus:border-brand-500 text-white placeholder:text-white/20 rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-1 focus:ring-brand-500/40";
 
@@ -28,10 +28,11 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit((d) => reg(d))} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">First Name</label><input {...register("first_name")} placeholder="Adaeze" className={inputCls} />{errors.first_name && <p className="text-red-400 text-xs mt-1">⚠ {errors.first_name.message}</p>}</div>
-              <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Last Name</label><input {...register("last_name")} placeholder="Okonkwo" className={inputCls} />{errors.last_name && <p className="text-red-400 text-xs mt-1">⚠ {errors.last_name.message}</p>}</div>
+              <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Middle Name (Optional)</label><input {...register("middle_name")} placeholder="Chukwuma" className={inputCls} />{errors.middle_name && <p className="text-red-400 text-xs mt-1">⚠ {errors.middle_name.message}</p>}</div>
             </div>
+            <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Last Name</label><input {...register("last_name")} placeholder="Okonkwo" className={inputCls} />{errors.last_name && <p className="text-red-400 text-xs mt-1">⚠ {errors.last_name.message}</p>}</div>
             <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Email</label><input {...register("email")} type="email" placeholder="you@example.com" className={inputCls} />{errors.email && <p className="text-red-400 text-xs mt-1">⚠ {errors.email.message}</p>}</div>
-            <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Phone (Optional)</label><input {...register("phone")} placeholder="+234 800 000 0000" className={inputCls} /></div>
+            <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Phone Number</label><input {...register("phone")} placeholder="+234 800 000 0000" className={inputCls} />{errors.phone && <p className="text-red-400 text-xs mt-1">⚠ {errors.phone.message}</p>}</div>
             <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Password</label><input {...register("password")} type="password" placeholder="Min. 8 characters" className={inputCls} />{errors.password && <p className="text-red-400 text-xs mt-1">⚠ {errors.password.message}</p>}</div>
             <div><label className="block text-xs font-semibold text-white/40 uppercase tracking-widest mb-2">Confirm Password</label><input {...register("confirm_password")} type="password" placeholder="Repeat password" className={inputCls} />{errors.confirm_password && <p className="text-red-400 text-xs mt-1">⚠ {errors.confirm_password.message}</p>}</div>
             <button type="submit" disabled={isPending} className="w-full bg-brand-500 hover:bg-brand-600 disabled:opacity-50 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center mt-2 shadow-lg shadow-brand-900/40">
