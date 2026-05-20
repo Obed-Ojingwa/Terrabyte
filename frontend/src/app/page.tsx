@@ -46,7 +46,7 @@ export default function HomePage() {
               <Link href="/public/courses" className="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-lg shadow-brand-900/50">
                 Explore Courses <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
-              <Link href="/public/verify-certificate" className="inline-flex items-center gap-3 border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold text-base transition-all">Verify Certificate</Link>
+              {/* <Link href="/public/verify-certificate" className="inline-flex items-center gap-3 border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 px-8 py-4 rounded-2xl font-semibold text-base transition-all">Verify Certificate</Link> */}
             </div>
           </div>
           <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/5 pt-12">
