@@ -33,4 +33,12 @@ ssl/*.pem
 ssl/*.key
 ssl/*.crt
 .build/
-
+.env.local
+.env.production
+frontend/.env.local
+frontend/.env.example
+frontend/.env.production
+backend/.env.local
+backend/.env.example
+backend/.env.production
+README.md
