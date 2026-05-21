@@ -96,7 +96,9 @@ export default function HomePage() {
     <div className="bg-[#03091A] text-white min-h-screen">
       <nav className="fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 md:px-12 py-4 border-b border-white/5 bg-[#03091A]/90 backdrop-blur-xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-black text-white">T</div>
+          <div className="w-10 h-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
+            <img src="/terrabytelogo.png" alt="Terrabyte Academy logo" className="h-full w-full object-contain" />
+          </div>
           <span className="font-bold text-lg">Terrabyte <span className="text-brand-400">Academy</span></span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm text-white/50">
@@ -112,7 +114,7 @@ export default function HomePage() {
       </nav>
 
       <main className="pt-24">
-        <section className="relative min-h-[85vh] overflow-hidden">
+        <section className="relative min-h-[85vh] overflow-visible">
           <div className="absolute top-0 left-1/2 h-full w-[1200px] -translate-x-1/2 rounded-full bg-brand-500/10 blur-[180px] pointer-events-none" />
           <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_top_left,_rgba(55,138,221,0.22),_transparent_35%)]" />
           <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-24">
@@ -279,13 +281,16 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid gap-12 lg:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center font-black text-white">T</div>
+              <div className="w-10 h-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
+                <img src="/terrabytelogo.png" alt="Terrabyte Academy logo" className="h-full w-full object-contain" />
+              </div>
               <div>
                 <p className="font-bold text-white">Terrabyte Academy</p>
-                <p className="text-sm text-white/50">Building tech careers across Africa.</p>
+                <p className="text-sm text-white/50">Practical tech training for career growth.</p>
               </div>
             </div>
             <div className="text-sm text-white/50">
+              <p>RC: 9099630</p>
               <p>+234 812 345 6789</p>
               <p>hello@terrabyte.academy</p>
             </div>
@@ -305,7 +310,7 @@ export default function HomePage() {
               <Link href="/public/events" className="block hover:text-white">Events</Link>
               <Link href="/public/verify-certificate" className="block hover:text-white">Verify Certificate</Link>
               <Link href="#testimonials" className="block hover:text-white">Testimonials</Link>
-              <Link href="#" className="block hover:text-white">Support</Link>
+              <Link href="#" className="block hover:text-white">Help Center</Link>
             </div>
           </div>
           <div>
