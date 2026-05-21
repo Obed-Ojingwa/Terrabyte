@@ -1,0 +1,19 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1a6ebf" />
+      <stop offset="1" stop-color="#378add" />
+    </linearGradient>
+    <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(560 160) rotate(90) scale(220 220)">
+      <stop stop-color="#9be2ff" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#1a6ebf" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" rx="40" fill="url(#g1)" />
+  <circle cx="560" cy="160" r="160" fill="url(#g2)" />
+  <rect x="80" y="80" width="260" height="260" rx="32" fill="#ffffff22" />
+  <text x="98" y="170" fill="white" font-family="Inter, sans-serif" font-size="34" font-weight="700">AI +</text>
+  <text x="98" y="220" fill="white" font-family="Inter, sans-serif" font-size="56" font-weight="800">Data</text>
+  <text x="98" y="290" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">Build models, analyze trends,</text>
+  <text x="98" y="320" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">and launch careers.</text>
+</svg>

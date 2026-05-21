@@ -1,0 +1,19 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="h2" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0e4a80" />
+      <stop offset="1" stop-color="#1a6ebf" />
+    </linearGradient>
+    <radialGradient id="h3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 120) rotate(90) scale(180 180)">
+      <stop stop-color="#8cd4ff" stop-opacity="0.6" />
+      <stop offset="1" stop-color="#0e4a80" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" rx="40" fill="url(#h2)" />
+  <circle cx="240" cy="120" r="180" fill="url(#h3)" />
+  <path d="M220 320H580C610 320 622 290 600 270L460 170C450 160 435 160 425 170L285 266C265 285 275 320 305 320Z" fill="#ffffff22" />
+  <text x="90" y="170" fill="white" font-family="Inter, sans-serif" font-size="34" font-weight="700">Cloud</text>
+  <text x="90" y="230" fill="white" font-family="Inter, sans-serif" font-size="56" font-weight="800">Labs</text>
+  <text x="90" y="300" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">Hands-on AWS, Azure</text>
+  <text x="90" y="330" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">and modern infrastructure.</text>
+</svg>

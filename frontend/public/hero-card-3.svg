@@ -1,0 +1,19 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="d1" x1="0" y1="0" x2="800" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#176b6b" />
+      <stop offset="1" stop-color="#378add" />
+    </linearGradient>
+    <radialGradient id="d2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 360) rotate(90) scale(180 180)">
+      <stop stop-color="#62dfe0" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#176b6b" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="500" rx="40" fill="url(#d1)" />
+  <circle cx="600" cy="360" r="180" fill="url(#d2)" />
+  <rect x="140" y="100" width="390" height="90" rx="24" fill="#ffffff22" />
+  <text x="160" y="158" fill="white" font-family="Inter, sans-serif" font-size="34" font-weight="700">Design</text>
+  <text x="160" y="220" fill="white" font-family="Inter, sans-serif" font-size="56" font-weight="800">Sprint</text>
+  <text x="160" y="292" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">Wireframes, UX flows,</text>
+  <text x="160" y="322" fill="#dce6ff" font-family="Inter, sans-serif" font-size="20">and polished interfaces.</text>
+</svg>
