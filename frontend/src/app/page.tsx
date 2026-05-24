@@ -286,14 +286,10 @@ export default function HomePage() {
               </div>
               <div>
                 <p className="font-bold text-white">Terrabyte Academy</p>
-                <p className="text-sm text-white/50">Practical tech training for career growth.</p>
+                <p className="text-sm text-white/50">RC: 9099630 </p>
               </div>
             </div>
-            <div className="text-sm text-white/50">
-              <p>RC: 9099630</p>
-              <p>+234 812 345 6789</p>
-              <p>hello@terrabyte.academy</p>
-            </div>
+          
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Company</p>
@@ -303,7 +299,16 @@ export default function HomePage() {
               <Link href="/public/courses" className="block hover:text-white">Courses</Link>
               <Link href="/public/blog" className="block hover:text-white">Blog</Link>
             </div>
+  
           </div>
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Contact Info</p>
+            <div className="space-y-3 text-sm text-white/50">
+              <p className="block">Email: <a href="mailto:hello@terrabyte.academy" className="hover:text-brand-400">hello@terrabyte.academy</a></p>
+              <p className="block">Phone: <a href="tel:+2348123456789" className="hover:text-brand-400">+234 812 345 6789</a></p>
+            </div>
+          </div>
+  
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Resources</p>
             <div className="space-y-3 text-sm text-white/50">
