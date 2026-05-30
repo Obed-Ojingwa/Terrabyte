@@ -93,48 +93,48 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="bg-[#03091A] text-white min-h-screen">
-      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 md:px-12 py-4 border-b border-white/5 bg-[#03091A]/90 backdrop-blur-xl">
+    <div className="min-h-screen">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 md:px-12 py-4 border-b border-[var(--muted)]/20 bg-[var(--bg)]/90 backdrop-blur-xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[var(--muted)]/10 bg-[var(--bg)]/10 flex items-center justify-center">
             <img src="/terrabytelogo.png" alt="Terrabyte Academy logo" className="h-full w-full object-contain" />
           </div>
           <span className="font-bold text-lg">Terrabyte <span className="text-brand-400">Academy</span></span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm text-white/50">
-          <Link href="#about" className="hover:text-white transition-colors">About</Link>
-          <Link href="#courses" className="hover:text-white transition-colors">Courses</Link>
-          <Link href="#testimonials" className="hover:text-white transition-colors">Testimonials</Link>
-          <Link href="#contact" className="hover:text-white transition-colors">Contact</Link>
+        <div className="hidden md:flex items-center gap-8 text-sm text-[var(--text)]/60">
+          <Link href="#about" className="hover:text-[var(--text)] transition-colors">About</Link>
+          <Link href="#courses" className="hover:text-[var(--text)] transition-colors">Courses</Link>
+          <Link href="#testimonials" className="hover:text-[var(--text)] transition-colors">Testimonials</Link>
+          <Link href="#contact" className="hover:text-[var(--text)] transition-colors">Contact</Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/auth/login" className="text-sm text-white/60 hover:text-white px-4 py-2 transition-colors">Sign In</Link>
+          <Link href="/auth/login" className="text-sm text-[var(--text)]/60 hover:text-[var(--text)] px-4 py-2 transition-colors">Sign In</Link>
           <Link href="/auth/register" className="text-sm bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl font-semibold transition-all">Get Started</Link>
         </div>
       </nav>
 
       <main className="pt-24">
         <section className="relative min-h-[85vh] overflow-visible">
-          <div className="absolute top-0 left-1/2 h-full w-[1200px] -translate-x-1/2 rounded-full bg-brand-500/10 blur-[180px] pointer-events-none" />
-          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_top_left,_rgba(55,138,221,0.22),_transparent_35%)]" />
+          <div className="absolute top-0 left-1/2 h-full w-[1200px] -translate-x-1/2 rounded-full bg-[var(--primary)]/10 blur-[180px] pointer-events-none" />
+          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.15),_transparent_35%)]" />
           <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-24">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-semibold px-4 py-2 rounded-full mb-8 tracking-wide uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" /> Nigeria&apos;s Premier Tech Academy
+              <div className="inline-flex items-center gap-2 bg-[var(--primary)]/10 border border-[var(--primary)]/30 text-[var(--text)] text-xs font-semibold px-4 py-2 rounded-full mb-8 tracking-wide uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse" /> Nigeria&apos;s Premier Tech Academy
               </div>
-              <h1 className="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight mb-6">Learn Skills That Actually Matter</h1>
-              <p className="text-lg text-white/60 max-w-2xl leading-relaxed mb-10">Practical, project-based training for technology careers that pay. From cybersecurity and cloud to data science and product design, build real skills that employers recognise.</p>
+              <h1 className="text-5xl md:text-7xl font-[var(--text)] leading-[1.05] tracking-tight mb-6">Learn Skills That Actually Matter</h1>
+              <p className="text-lg text-[var(--text)]/60 max-w-2xl leading-relaxed mb-10">Practical, project-based training for technology careers that pay. From cybersecurity and cloud to data science and product design, build real skills that employers recognise.</p>
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Link href="#courses" className="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-lg shadow-brand-900/30">
+                <Link href="#courses" className="group inline-flex items-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary-600)] px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-lg shadow-[var(--primary)]/30">
                   Explore Courses <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
-                <Link href="#contact" className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-base text-white/80 hover:text-white hover:bg-white/10 transition">Contact Us</Link>
+                <Link href="#contact" className="inline-flex items-center justify-center rounded-2xl border border-[var(--muted)]/10 bg-[var(--bg)]/5 px-8 py-4 text-base text-[var(--text)]/80 hover:text-[var(--text)] hover:bg-[var(--bg)]/10 transition">Contact Us</Link>
               </div>
             </div>
 
             <div className="mt-20 grid gap-5 md:grid-cols-3">
               {heroCards.map((card, index) => (
-                <div key={card.alt} className={`hero-card overflow-hidden rounded-[2rem] border border-white/10 bg-[#071428] shadow-2xl shadow-brand-900/10 ${index === 0 ? "animate-float-1" : index === 1 ? "animate-float-2" : "animate-float-3"}`}>
+                <div key={card.alt} className={`hero-card overflow-hidden rounded-[2rem] border border-[var(--muted)]/10 bg-[var(--surface)] shadow-2xl shadow-[var(--primary)]/10 ${index === 0 ? "animate-float-1" : index === 1 ? "animate-float-2" : "animate-float-3"}`}>
                   <img src={card.src} alt={card.alt} className="h-full w-full object-cover" />
                 </div>
               ))}
