@@ -9,7 +9,7 @@ export default function CoursesPage() {
   const [search, setSearch] = useState("");
   const { data, isLoading } = useCourses({ ...filters, ...(search ? { search } : {}) });
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg-[var(--primary)]/90">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-black text-[var(--text)] mb-2 tracking-tight">Explore Courses</h1>
         <p className="text-[var(--text)]/40 mb-8">Find the perfect course to advance your career</p>

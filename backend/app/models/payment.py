@@ -1,24 +1,37 @@
-import uuid
-from sqlalchemy import String, ForeignKey, Numeric, DateTime
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+# C:\Users\Melody\Documents\workinprog\terrabyte\backend\app\models\payment.py
+from __future__ import annotations
+import enum
 from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+from sqlalchemy import String, DateTime, Text, ForeignKey, Numeric, Enum as SAEnum
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
+
+if TYPE_CHECKING:
+    from app.models.user import User
+    from app.models.course import Course
+
+
+class PaymentStatus(str, enum.Enum):
+    pending = "pending"
+    success = "success"
+    failed = "failed"
+    refunded = "refunded"
 
 
 class Payment(Base):
     __tablename__ = "payments"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    student_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
-    course_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("courses.id"), nullable=True)
-    enrollment_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("enrollments.id"), nullable=True)
-    amount: Mapped[float] = mapped_column(Numeric(10, 2))
-    currency: Mapped[str] = mapped_column(String(10), default="NGN")
-    gateway: Mapped[str] = mapped_column(String(50))
-    gateway_ref: Mapped[str | None] = mapped_column(String(255), unique=True, nullable=True)
-    status: Mapped[str] = mapped_column(String(50), default="pending")
-    payment_type: Mapped[str] = mapped_column(String(50), default="course")
-    metadata_: Mapped[dict | None] = mapped_column("metadata", JSONB, nullable=True)
-    paid_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    student: Mapped["User"] = relationship(foreign_keys=[student_id])
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    course_id: Mapped[int] = mapped_column(ForeignKey("courses.id"), nullable=False)
+    amount: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False)
+    status: Mapped[PaymentStatus] = mapped_column(SAEnum(PaymentStatus), default=PaymentStatus.pending, nullable=False)
+    paystack_reference: Mapped[Optional[str]] = mapped_column(String(255), unique=True, index=True)
+    paystack_access_code: Mapped[Optional[str]] = mapped_column(String(255))
+    paystack_authorization_url: Mapped[Optional[str]] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
+
+    user: Mapped["User"] = relationship("User", back_populates="payments")
+    course: Mapped["Course"] = relationship("Course")

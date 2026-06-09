@@ -13,10 +13,10 @@ const revenueData = [
 export default function AdminDashboard() {
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: async () => (await api.get("/analytics/admin")).data });
   return (
-    <div className="p-6 space-y-6 min-h-full">
+    <div className="p-6 space-y-6 min-h-full bg-[var(--primary)]/90">
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-black text-[var(--text)] tracking-tight">Admin Dashboard</h1><p className="text-[var(--text)]/40 text-sm mt-1">Platform overview — {new Date().toLocaleDateString("en-NG",{month:"long",year:"numeric"})}</p></div>
-        <button className="flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-[var(--text)] font-semibold text-sm px-4 py-2.5 rounded-xl transition-all"><BookOpen size={15}/> New Course</button>
+        <button className="flex items-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary)-600 text-[var(--text)] font-semibold text-sm px-4 py-2.5 rounded-xl transition-all"><BookOpen size={15}/> New Course</button>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Total Students" value={stats?.total_students ?? 0} icon={<Users size={16}/>} color="blue" change={12}/>
@@ -25,17 +25,17 @@ export default function AdminDashboard() {
         <StatCard label="Certs Issued" value={stats?.certificates_issued ?? 0} icon={<Award size={16}/>} color="purple" change={9}/>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 bg-[var(--surface)]/20 border border-[var(--muted)]/20 rounded-2xl p-6">
+        <div className="lg:col-span-2 bg-[var(--surface)]/10 border border-[var(--muted)]/20 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-6"><h2 className="font-bold text-[var(--text)] text-sm">Revenue Overview</h2><span className="text-[var(--text)]/30 text-xs">Last 6 months</span></div>
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={revenueData} barSize={28}>
-              <XAxis dataKey="month" tick={{fill:"rgba(255,255,255,0.3)",fontSize:11}} axisLine={false} tickLine={false}/>
-              <Tooltip contentStyle={{background:"[var(--surface)]",border:"0.5px solid rgba(55,138,221,0.3)",borderRadius:8,fontSize:11}} formatter={(v:number)=>[`₦${(v/1000000).toFixed(2)}M`,"Revenue"]} labelStyle={{color:"[var(--text)]/0.5"}} cursor={{fill:"rgba(255,255,255,0.03)"}}/>
-              <Bar dataKey="value" radius={[6,6,0,0]}>{revenueData.map((_,i)=><Cell key={i} fill={i===revenueData.length-1?"#378add":`rgba(55,138,221,${0.2+i*0.12})`}/>)}</Bar>
+              <XAxis dataKey="month" tick={{fill:"[var(--text)]/20",fontSize:11}} axisLine={false} tickLine={false}/>
+              <Tooltip contentStyle={{background:"[var(--surface)]",border:"1px solid [var(--muted)]/20",borderRadius:8,fontSize:11}} formatter={(v:number)=>[`₦${(v/1000000).toFixed(2)}M`,"Revenue"]} labelStyle={{color:"[var(--text)]/60"}} cursor={{fill:"[var(--text)]/20"}}/>
+              <Bar dataKey="value" radius={[6,6,0,0]}>{revenueData.map((_,i)=><Cell key={i} fill={i===revenueData.length-1?`[var(--primary)]`:`[var(--primary)]/20`}/>)}</Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-[var(--surface)]/20 border border-[var(--muted)]/20 rounded-2xl p-6">
+        <div className="bg-[var(--surface)]/10 border border-[var(--muted)]/20 rounded-2xl p-6">
           <h2 className="font-bold text-[var(--text)] text-sm mb-4">Quick Actions</h2>
           <div className="space-y-2">
             {[["📚","Create Course"],["👤","Add Student"],["💳","View Payments"],["🎓","Approve Certificate"],["📝","Write Blog Post"],["📅","Create Event"]].map(([icon,label])=>(
@@ -44,18 +44,18 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-      <div className="bg-[var(--surface)]/20 border border-[var(--muted)]/20 rounded-2xl overflow-hidden">
-        <div className="p-5 border-b border-[var(--muted)]/20 flex items-center justify-between"><h2 className="font-bold text-[var(--text)] text-sm">Recent Registrations</h2><button className="text-xs text-brand-400 hover:text-brand-300 transition-colors">View all →</button></div>
+      <div className="bg-[var(--surface)]/10 border border-[var(--muted)]/20 rounded-2xl overflow-hidden">
+        <div className="p-5 border-b border-[var(--muted)]/20 flex items-center justify-between"><h2 className="font-bold text-[var(--text)] text-sm">Recent Registrations</h2><button className="text-xs text-[var(--primary)] hover:text-[var(--primary)-600 transition-colors">View all →</button></div>
         <table className="w-full text-sm">
           <thead><tr className="text-[var(--text)]/30 text-xs uppercase tracking-wider"><th className="text-left px-5 py-3 font-medium">Student</th><th className="text-left px-5 py-3 font-medium">Course</th><th className="text-left px-5 py-3 font-medium">Mode</th><th className="text-left px-5 py-3 font-medium">Amount</th><th className="text-left px-5 py-3 font-medium">Status</th></tr></thead>
           <tbody>
             {[{name:"Emeka Nwosu",course:"Cybersecurity",mode:"Online",amount:"₦75,000",status:"Active"},{name:"Fatima Bello",course:"Data Analysis",mode:"Physical",amount:"₦85,000",status:"Pending"},{name:"Chukwudi Eze",course:"Web Dev",mode:"Online",amount:"₦95,000",status:"Active"},{name:"Ngozi Adeleke",course:"Cloud AWS",mode:"Private",amount:"₦120,000",status:"Active"}].map((row,i)=>(
-              <tr key={i} className="border-t border-[var(--muted)]/20 hover:bg-[var(--surface)]/2 transition-colors">
+              <tr key={i} className="border-t border-[var(--muted)]/20 hover:bg-[var(--surface)]/5 transition-colors">
                 <td className="px-5 py-4 text-[var(--text)] font-medium">{row.name}</td>
                 <td className="px-5 py-4 text-[var(--text)]/50">{row.course}</td>
                 <td className="px-5 py-4 text-[var(--text)]/50">{row.mode}</td>
                 <td className="px-5 py-4 text-[var(--text)]">{row.amount}</td>
-                <td className="px-5 py-4"><span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${row.status==="Active"?"bg-green-500/10 text-green-400":"bg-yellow-500/10 text-yellow-400"}`}>{row.status}</span></td>
+                <td className="px-5 py-4"><span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${row.status==="Active"?"bg-green-500/20 text-green-400":"bg-yellow-500/20 text-yellow-400"}`}>{row.status}</span></td>
               </tr>
             ))}
           </tbody>

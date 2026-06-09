@@ -1,23 +1,28 @@
-import uuid
-from sqlalchemy import String, Boolean, ForeignKey, Text, DateTime
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy.dialects.postgresql import UUID
+# C:\Users\Melody\Documents\workinprog\terrabyte\backend\app\models\blog.py
+from __future__ import annotations
 from datetime import datetime
+from typing import Optional, TYPE_CHECKING
+from sqlalchemy import String, Boolean, DateTime, Text, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
+
+if TYPE_CHECKING:
+    from app.models.user import User
 
 
 class BlogPost(Base):
     __tablename__ = "blog_posts"
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    author_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
-    title: Mapped[str] = mapped_column(String(255))
-    slug: Mapped[str] = mapped_column(String(255), unique=True, index=True)
-    content: Mapped[str | None] = mapped_column(Text, nullable=True)
-    excerpt: Mapped[str | None] = mapped_column(Text, nullable=True)
-    cover_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
-    is_published: Mapped[bool] = mapped_column(Boolean, default=False)
-    category: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    author: Mapped["User"] = relationship(foreign_keys=[author_id])
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    slug: Mapped[str] = mapped_column(String(300), unique=True, nullable=False, index=True)
+    excerpt: Mapped[Optional[str]] = mapped_column(Text)
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    thumbnail_url: Mapped[Optional[str]] = mapped_column(Text)
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    is_published: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    published_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+
+    author: Mapped["User"] = relationship("User")

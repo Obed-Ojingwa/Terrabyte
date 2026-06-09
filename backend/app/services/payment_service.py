@@ -1,55 +1,116 @@
-import hmac
-import hashlib
+# C:\Users\Melody\Documents\workinprog\terrabyte\backend\app\services\payment_service.py
 import httpx
-from fastapi import HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from fastapi import HTTPException
+import uuid
+
 from app.config import settings
-from app.models.payment import Payment
-from app.models.enrollment import Enrollment
+from app.models.payment import Payment, PaymentStatus
+from app.models.enrollment import Enrollment, EnrollmentStatus
+from app.models.course import Course
+from app.models.user import User
 
 
-class PaymentService:
-    def __init__(self, db: AsyncSession):
-        self.db = db
-        self.base = "https://api.paystack.co"
-        self.headers = {"Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}", "Content-Type": "application/json"}
+PAYSTACK_BASE = "https://api.paystack.co"
+HEADERS = {
+    "Authorization": f"Bearer {settings.PAYSTACK_SECRET_KEY}",
+    "Content-Type": "application/json",
+}
 
-    async def initialize_payment(self, course_id: str, mode: str, user):
-        from app.models.course import Course
-        course = (await self.db.execute(select(Course).where(Course.id == course_id))).scalar_one_or_none()
-        if not course:
-            raise HTTPException(status_code=404, detail="Course not found")
-        async with httpx.AsyncClient() as client:
-            resp = await client.post(f"{self.base}/transaction/initialize", json={"email": user.email, "amount": int(course.price * 100), "metadata": {"course_id": str(course_id), "student_id": str(user.id), "mode": mode}}, headers=self.headers)
-        data = resp.json()
-        if not data.get("status"):
-            raise HTTPException(status_code=400, detail="Payment initialization failed")
-        return {"authorization_url": data["data"]["authorization_url"], "reference": data["data"]["reference"]}
 
-    async def verify_payment(self, reference: str, user):
-        async with httpx.AsyncClient() as client:
-            resp = await client.get(f"{self.base}/transaction/verify/{reference}", headers=self.headers)
-        data = resp.json()
-        if not data.get("status") or data["data"]["status"] != "success":
-            raise HTTPException(status_code=400, detail="Payment not successful")
-        meta = data["data"]["metadata"]
-        payment = Payment(student_id=user.id, course_id=meta["course_id"], amount=data["data"]["amount"] / 100, gateway="paystack", gateway_ref=reference, status="success")
-        self.db.add(payment)
-        enrollment = Enrollment(student_id=user.id, course_id=meta["course_id"], mode=meta["mode"], status="active")
-        self.db.add(enrollment)
-        await self.db.commit()
-        return {"message": "Payment verified. Enrollment activated."}
+async def initialize_payment(db: AsyncSession, user: User, course_id: int) -> dict:
+    result = await db.execute(select(Course).where(Course.id == course_id))
+    course = result.scalar_one_or_none()
+    if not course or not course.is_published:
+        raise HTTPException(status_code=404, detail="Course not found")
 
-    async def handle_webhook(self, request: Request):
-        body = await request.body()
-        signature = request.headers.get("x-paystack-signature", "")
-        expected = hmac.new(settings.PAYSTACK_SECRET_KEY.encode(), body, hashlib.sha512).hexdigest()
-        if not hmac.compare_digest(signature, expected):
-            raise HTTPException(status_code=400, detail="Invalid webhook signature")
-        return {"status": "processed"}
+    reference = f"TB-{uuid.uuid4().hex[:12].upper()}"
+    amount_kobo = int(course.price * 100)
 
-    async def get_all_payments(self):
-        result = await self.db.execute(select(Payment).order_by(Payment.created_at.desc()))
-        payments = result.scalars().all()
-        return {"items": [{"id": str(p.id), "amount": float(p.amount), "currency": p.currency, "status": p.status, "gateway_ref": p.gateway_ref, "created_at": p.created_at} for p in payments]}
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            f"{PAYSTACK_BASE}/transaction/initialize",
+            headers=HEADERS,
+            json={
+                "email": user.email,
+                "amount": amount_kobo,
+                "reference": reference,
+                "callback_url": f"{settings.FRONTEND_URL}/payment/verify?ref={reference}",
+                "metadata": {
+                    "user_id": user.id,
+                    "course_id": course_id,
+                    "course_title": course.title,
+                },
+            },
+        )
+
+    if resp.status_code != 200:
+        raise HTTPException(status_code=502, detail="Payment initialization failed")
+
+    data = resp.json()["data"]
+
+    payment = Payment(
+        user_id=user.id,
+        course_id=course_id,
+        amount=course.price,
+        status=PaymentStatus.pending,
+        paystack_reference=reference,
+        paystack_access_code=data["access_code"],
+        paystack_authorization_url=data["authorization_url"],
+    )
+    db.add(payment)
+    await db.flush()
+
+    return {
+        "authorization_url": data["authorization_url"],
+        "reference": reference,
+        "access_code": data["access_code"],
+    }
+
+
+async def verify_payment(db: AsyncSession, reference: str) -> dict:
+    result = await db.execute(select(Payment).where(Payment.paystack_reference == reference))
+    payment = result.scalar_one_or_none()
+    if not payment:
+        raise HTTPException(status_code=404, detail="Payment not found")
+
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            f"{PAYSTACK_BASE}/transaction/verify/{reference}",
+            headers=HEADERS,
+        )
+
+    if resp.status_code != 200:
+        raise HTTPException(status_code=502, detail="Payment verification failed")
+
+    ps_data = resp.json()["data"]
+    ps_status = ps_data["status"]
+
+    from datetime import datetime
+    if ps_status == "success":
+        payment.status = PaymentStatus.success
+        payment.verified_at = datetime.utcnow()
+
+        # Activate or create enrollment
+        enroll_result = await db.execute(
+            select(Enrollment).where(
+                Enrollment.student_id == payment.user_id,
+                Enrollment.course_id == payment.course_id,
+            )
+        )
+        enrollment = enroll_result.scalar_one_or_none()
+        if enrollment:
+            enrollment.status = EnrollmentStatus.active
+        else:
+            enrollment = Enrollment(
+                student_id=payment.user_id,
+                course_id=payment.course_id,
+                status=EnrollmentStatus.active,
+            )
+            db.add(enrollment)
+    else:
+        payment.status = PaymentStatus.failed
+
+    await db.flush()
+    return {"status": ps_status, "payment_id": payment.id}

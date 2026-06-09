@@ -5,7 +5,7 @@ import { Clock, Monitor, MapPin, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const modeIcons = { online: Monitor, physical: MapPin, private: User };
-const levelColors: Record<string, string> = { beginner: "bg-green-500/10 text-green-400", intermediate: "bg-yellow-500/10 text-yellow-400", advanced: "bg-red-500/10 text-red-400" };
+const levelColors: Record<string, string> = { beginner: "bg-[var(--primary)]/10 text-[var(--primary)]", intermediate: "bg-[var(--primary)]/10 text-[var(--primary)]", advanced: "bg-[var(--primary)]/10 text-[var(--primary)]" };
 
 export default function CourseCard({ course }: { course: Course }) {
   const ModeIcon = modeIcons[course.mode] || Monitor;

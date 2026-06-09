@@ -6,19 +6,19 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50:  "#e8f1fb",
-          100: "#c0d9f4",
-          300: "#5ba3e8",
-          400: "#378add",
-          500: "#1a6ebf",
-          600: "#185fa5",
-          700: "#0e4a80",
-          900: "#042c53",
+          50:  "#eff6ff",
+          100: "#dbeafe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          900: "#1e3a8a",
         },
         surface: {
-          DEFAULT: "#03091A",
-          card: "#071428",
-          deep: "#040d1c",
+          DEFAULT: "#ffffff", /* White background */
+          card: "#f8fafc", /* Light card background */
+          deep: "#f1f5f9", /* Slightly darker for depth */
         },
       },
       fontFamily: {

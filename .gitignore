@@ -3,7 +3,6 @@ __pycache__/
 *.py[cod]
 *.pyo
 venv/
-.env
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
@@ -11,8 +10,6 @@ venv/
 # Node
 node_modules/
 .next/
-.env.local
-.env.production
 out/
 build/
 
@@ -24,7 +21,6 @@ build/
 Thumbs.db
 
 # IDE
-.vscode/
 .idea/
 *.swp
 
@@ -33,8 +29,6 @@ ssl/*.pem
 ssl/*.key
 ssl/*.crt
 .build/
-.env.local
-.env.production
 frontend/.env.local
 frontend/.env.example
 frontend/.env.production
@@ -44,3 +38,4 @@ backend/.env.production
 README.md
 .README.md
 
+config.bat

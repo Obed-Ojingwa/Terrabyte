@@ -1,74 +1,73 @@
+# C:\Users\Melody\Documents\workinprog\terrabyte\backend\app\services\auth_service.py
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi import HTTPException, status
+from datetime import datetime
+
 from app.models.user import User, Role
+from app.core.security import hash_password, verify_password, create_access_token, create_refresh_token, decode_token
 from app.schemas.auth import RegisterRequest, LoginRequest, TokenResponse
-from app.core.security import hash_password, verify_password, create_access_token, create_refresh_token
+import jwt
 
 
-class AuthService:
-    def __init__(self, db: AsyncSession):
-        self.db = db
+async def register_user(db: AsyncSession, data: RegisterRequest) -> User:
+    result = await db.execute(select(User).where(User.email == data.email))
+    if result.scalar_one_or_none():
+        raise HTTPException(status_code=400, detail="Email already registered")
 
-    async def register(self, payload: RegisterRequest) -> TokenResponse:
-        existing = await self.db.execute(select(User).where(User.email == payload.email))
-        if existing.scalar_one_or_none():
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
-        role = await self.db.execute(select(Role).where(Role.name == "student"))
-        student_role = role.scalar_one_or_none()
-        if not student_role:
-            raise HTTPException(status_code=500, detail="Student role not found. Run DB seed.")
-        user = User(
-            email=payload.email,
-            password_hash=hash_password(payload.password),
-            first_name=payload.first_name,
-            middle_name=payload.middle_name,
-            last_name=payload.last_name,
-            phone=payload.phone,
-            role_id=student_role.id,
-        )
-        self.db.add(user)
-        await self.db.commit()
-        await self.db.refresh(user)
-        await self.db.refresh(user, ["role"])
-        return self._build_tokens(user)
+    role_result = await db.execute(select(Role).where(Role.name == "student"))
+    role = role_result.scalar_one_or_none()
+    if not role:
+        raise HTTPException(status_code=500, detail="Student role not found")
 
-    async def login(self, payload: LoginRequest) -> TokenResponse:
-        result = await self.db.execute(select(User).where(User.email == payload.email))
-        user = result.scalar_one_or_none()
-        if not user or not verify_password(payload.password, user.password_hash):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-        if not user.is_active:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Account disabled")
-        await self.db.refresh(user, ["role"])
-        return self._build_tokens(user)
+    user = User(
+        email=data.email,
+        hashed_password=hash_password(data.password),
+        first_name=data.first_name,
+        last_name=data.last_name,
+        phone=data.phone,
+        role_id=role.id,
+        is_active=True,
+        is_verified=False,
+    )
+    db.add(user)
+    await db.flush()
+    await db.refresh(user)
+    return user
 
-    def _build_tokens(self, user: User) -> TokenResponse:
-        return TokenResponse(
-            access_token=create_access_token(str(user.id), user.role.name),
-            refresh_token=create_refresh_token(str(user.id)),
-            user={
-                "id": str(user.id),
-                "email": user.email,
-                "first_name": user.first_name,
-                "middle_name": user.middle_name,
-                "last_name": user.last_name,
-                "role": {"name": user.role.name},
-                "avatar_url": user.avatar_url,
-            },
-        )
 
-    async def refresh(self, refresh_token: str) -> dict:
-        from app.core.security import decode_token
-        try:
-            payload = decode_token(refresh_token)
-            if payload.get("type") != "refresh":
-                raise ValueError("Not a refresh token")
-        except ValueError as e:
-            raise HTTPException(status_code=401, detail=str(e))
-        result = await self.db.execute(select(User).where(User.id == payload["sub"]))
-        user = result.scalar_one_or_none()
-        if not user:
-            raise HTTPException(status_code=401, detail="User not found")
-        await self.db.refresh(user, ["role"])
-        return {"access_token": create_access_token(str(user.id), user.role.name), "token_type": "bearer"}
+async def login_user(db: AsyncSession, data: LoginRequest) -> TokenResponse:
+    result = await db.execute(select(User).where(User.email == data.email))
+    user = result.scalar_one_or_none()
+    if not user or not verify_password(data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    if not user.is_active:
+        raise HTTPException(status_code=403, detail="Account is deactivated")
+
+    user.last_login = datetime.utcnow()
+    await db.flush()
+
+    return TokenResponse(
+        access_token=create_access_token(user.id),
+        refresh_token=create_refresh_token(user.id),
+    )
+
+
+async def refresh_tokens(db: AsyncSession, refresh_token: str) -> TokenResponse:
+    try:
+        payload = decode_token(refresh_token)
+        if payload.get("type") != "refresh":
+            raise ValueError("Not a refresh token")
+        user_id = int(payload["sub"])
+    except (jwt.PyJWTError, ValueError):
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+    result = await db.execute(select(User).where(User.id == user_id))
+    user = result.scalar_one_or_none()
+    if not user or not user.is_active:
+        raise HTTPException(status_code=401, detail="User not found")
+
+    return TokenResponse(
+        access_token=create_access_token(user.id),
+        refresh_token=create_refresh_token(user.id),
+    )

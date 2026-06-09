@@ -14,15 +14,15 @@ export default function CourseFilter({ filters, onChange }: Props) {
     <div className="space-y-6">
       {[{ title: "Category", key: "category", items: categories }, { title: "Mode", key: "mode", items: modes }, { title: "Level", key: "level", items: levels }].map(({ title, key, items }) => (
         <div key={key}>
-          <h3 className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-3">{title}</h3>
+          <h3 className="text-xs font-semibold text-[var(--text)]/40 uppercase tracking-widest mb-3">{title}</h3>
           <div className="space-y-1">
             {items.map((item) => (
-              <button key={item} onClick={() => set(key, item)} className={`w-full text-left text-sm px-3 py-2 rounded-xl transition-all capitalize ${filters[key] === item ? "bg-brand-500/20 text-brand-300 font-semibold" : "text-white/50 hover:bg-white/[0.05] hover:text-white"}`}>{item}</button>
+              <button key={item} onClick={() => set(key, item)} className={`w-full text-left text-sm px-3 py-2 rounded-xl transition-all capitalize ${filters[key] === item ? "bg-[var(--primary)]/20 text-[var(--primary)] font-semibold" : "text-[var(--text)]/50 hover:bg-[var(--surface)]/20 hover:text-[var(--text)]"}`}>{item}</button>
             ))}
           </div>
         </div>
       ))}
-      {Object.keys(filters).length > 0 && <button onClick={() => onChange({})} className="text-xs text-red-400 hover:text-red-300 transition-colors">✕ Clear filters</button>}
+      {Object.keys(filters).length > 0 && <button onClick={() => onChange({})} className="text-xs text-[var(--primary)] hover:text-[var(--primary)-600 transition-colors">✕ Clear filters</button>}
     </div>
   );
 }

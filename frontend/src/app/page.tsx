@@ -94,21 +94,23 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 md:px-12 py-4 border-b border-[var(--muted)]/20 bg-[var(--bg)]/90 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 md:px-12 py-4 border-b border-[var(--muted)]/20 bg-[var(--navy)]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[var(--muted)]/10 bg-[var(--bg)]/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[var(--muted)]/10 bg-[var(--primary)]/20 flex items-center justify-center">
             <img src="/terrabytelogo.png" alt="Terrabyte Academy logo" className="h-full w-full object-contain" />
           </div>
-          <span className="font-bold text-lg">Terrabyte <span className="text-brand-400">Academy</span></span>
+          <span className="font-bold text-lg">
+            TERRA<span className="text-brand-400">BYTE</span> ACADEMY
+          </span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm text-[var(--text)]/60">
-          <Link href="#about" className="hover:text-[var(--text)] transition-colors">About</Link>
-          <Link href="#courses" className="hover:text-[var(--text)] transition-colors">Courses</Link>
-          <Link href="#testimonials" className="hover:text-[var(--text)] transition-colors">Testimonials</Link>
-          <Link href="#contact" className="hover:text-[var(--text)] transition-colors">Contact</Link>
+        <div className="hidden md:flex items-center gap-8 text-sm text-white/60">
+          <Link href="#about" className="hover:text-white transition-colors">About</Link>
+          <Link href="#courses" className="hover:text-white transition-colors">Courses</Link>
+          <Link href="#testimonials" className="hover:text-white transition-colors">Testimonials</Link>
+          <Link href="#contact" className="hover:text-white transition-colors">Contact</Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/auth/login" className="text-sm text-[var(--text)]/60 hover:text-[var(--text)] px-4 py-2 transition-colors">Sign In</Link>
+          <Link href="/auth/login" className="text-sm text-white/60 hover:text-white px-4 py-2 transition-colors">Sign In</Link>
           <Link href="/auth/register" className="text-sm bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl font-semibold transition-all">Get Started</Link>
         </div>
       </nav>
@@ -128,7 +130,7 @@ export default function HomePage() {
                 <Link href="#courses" className="group inline-flex items-center gap-3 bg-[var(--primary)] hover:bg-[var(--primary-600)] px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-lg shadow-[var(--primary)]/30">
                   Explore Courses <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
-                <Link href="#contact" className="inline-flex items-center justify-center rounded-2xl border border-[var(--muted)]/10 bg-[var(--bg)]/5 px-8 py-4 text-base text-[var(--text)]/80 hover:text-[var(--text)] hover:bg-[var(--bg)]/10 transition">Contact Us</Link>
+                <Link href="#contact" className="inline-flex items-center justify-center rounded-2xl border border-[var(--muted)]/10 bg-[var(--primary)]/20 px-8 py-4 text-base text-[var(--text)]/80 hover:text-[var(--text)] hover:bg-[var(--primary)]/30 transition">Contact Us</Link>
               </div>
             </div>
 
@@ -147,26 +149,26 @@ export default function HomePage() {
             <div>
               <p className="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">About Us</p>
               <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">We turn curious learners into confident tech professionals.</h2>
-              <p className="text-white/60 leading-relaxed max-w-2xl mb-8">Terrabyte Academy combines expert-led instruction, live mentorship, and real projects to help students develop modern digital skills. Our programs are designed for people who want meaningful career growth, not just certificates.</p>
+              <p className="text-[var(--text)]/60 leading-relaxed max-w-2xl mb-8">Terrabyte Academy combines expert-led instruction, live mentorship, and real projects to help students develop modern digital skills. Our programs are designed for people who want meaningful career growth, not just certificates.</p>
               <div className="grid gap-4 sm:grid-cols-3">
-                <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-                  <p className="text-3xl font-black text-white">300+</p>
-                  <p className="mt-2 text-sm text-white/50">Projects completed</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)] p-6">
+                  <p className="text-3xl font-black text-[var(--text)]">300+</p>
+                  <p className="mt-2 text-sm text-[var(--text)]/60">Projects completed</p>
                 </div>
-                <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-                  <p className="text-3xl font-black text-white">24/7</p>
-                  <p className="mt-2 text-sm text-white/50">Mentor support</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)] p-6">
+                  <p className="text-3xl font-black text-[var(--text)]">24/7</p>
+                  <p className="mt-2 text-sm text-[var(--text)]/60">Mentor support</p>
                 </div>
-                <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-                  <p className="text-3xl font-black text-white">98%</p>
-                  <p className="mt-2 text-sm text-white/50">Student satisfaction</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)] p-6">
+                  <p className="text-3xl font-black text-[var(--text)]">98%</p>
+                  <p className="mt-2 text-sm text-[var(--text)]/60">Student satisfaction</p>
                 </div>
               </div>
             </div>
-            <div className="rounded-[2.5rem] border border-white/10 bg-[#06102A] p-8 shadow-2xl shadow-brand-900/20">
+            <div className="rounded-[2.5rem] border border-[var(--muted)]/20 bg-[var(--surface)]/90 p-8 shadow-2xl shadow-[var(--primary)]/20">
               <div className="text-sm text-brand-400 uppercase tracking-[0.3em] mb-4">Company overview</div>
-              <p className="text-white/70 leading-relaxed mb-6">We build learning experiences that focus on career outcomes. Each course is shaped around employer expectations, real tools, and portfolio-ready work to help learners create momentum from day one.</p>
-              <div className="space-y-4 text-white/70">
+              <p className="text-[var(--text)]/70 leading-relaxed mb-6">We build learning experiences that focus on career outcomes. Each course is shaped around employer expectations, real tools, and portfolio-ready work to help learners create momentum from day one.</p>
+              <div className="space-y-4 text-[var(--text)]/70">
                 <div className="flex items-start gap-3">
                   <span className="mt-1 text-brand-400">•</span>
                   <span>Hands-on labs with real-world tools.</span>
@@ -194,22 +196,22 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {courses.map((course) => (
-              <Link href="/public/courses" key={course.title} className="group overflow-hidden rounded-[2rem] border border-white/10 bg-[#071428] transition hover:-translate-y-1 hover:border-brand-500/40 shadow-xl shadow-brand-900/10">
-                <div className="relative h-56 overflow-hidden bg-[#0a1323]">
+              <Link href="/public/courses" key={course.title} className="group overflow-hidden rounded-[2rem] border border-[var(--muted)]/20 bg-[var(--surface)] transition hover:-translate-y-1 hover:border-[var(--primary)]/40 shadow-xl shadow-[var(--primary)]/10">
+                <div className="relative h-56 overflow-hidden bg-[var(--surface)]/90">
                   <img src={course.thumbnail} alt={course.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#03091A] to-transparent" />
-                  <div className="absolute left-5 bottom-5 text-sm text-white/80 uppercase tracking-[0.28em]">{course.category}</div>
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[var(--surface)]/95 to-transparent" />
+                  <div className="absolute left-5 bottom-5 text-sm text-[var(--text)]/80 uppercase tracking-[0.28em]">{course.category}</div>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/50">{course.level}</span>
-                    <span className="text-3xl">{course.icon}</span>
+                    <span className="rounded-full bg-[var(--surface)]/20 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-[var(--text)]/50">{course.level}</span>
+                    <span className="text-3xl text-[var(--text)]">{course.icon}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{course.title}</h3>
-                  <p className="text-sm text-white/50 mb-6">{course.duration} • Certificate included • Hands-on labs</p>
-                  <div className="flex items-center justify-between gap-4 text-sm text-white/40">
+                  <h3 className="text-xl font-bold text-[var(--text)] mb-3">{course.title}</h3>
+                  <p className="text-sm text-[var(--text)]/50 mb-6">{course.duration} • Certificate included • Hands-on labs</p>
+                  <div className="flex items-center justify-between gap-4 text-sm text-[var(--text)]/40">
                     <span>From ₦{course.price.toLocaleString()}</span>
-                    <span className="text-brand-400 font-semibold">Enroll →</span>
+                    <span className="text-[var(--primary)] font-semibold">Enroll →</span>
                   </div>
                 </div>
               </Link>
@@ -220,20 +222,20 @@ export default function HomePage() {
         <section id="testimonials" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
           <div className="mb-14 text-center">
             <p className="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Student Success</p>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight">Real stories from graduates</h2>
+            <h2 className="text-4xl md:text-5xl font-[var(--text)] tracking-tight">Real stories from graduates</h2>
           </div>
           <div className="grid gap-6 xl:grid-cols-3">
             {testimonials.map((item) => (
-              <div key={item.name} className="rounded-[2rem] border border-white/10 bg-[#071428]/90 p-8 shadow-xl shadow-brand-900/20">
+              <div key={item.name} className="rounded-[2rem] border border-[var(--muted)]/20 bg-[var(--surface)]/90 p-8 shadow-xl shadow-[var(--primary)]/20">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-brand-500/10 text-brand-300 text-xl">{item.name.split(" ").map((part) => part[0]).join("")}</div>
+                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[var(--primary)]/10 text-[var(--primary)] text-xl">{item.name.split(" ").map((part) => part[0]).join("")}</div>
                   <div>
-                    <p className="font-bold text-white">{item.name}</p>
-                    <p className="text-sm text-white/50">{item.title}</p>
+                    <p className="font-bold text-[var(--text)]">{item.name}</p>
+                    <p className="text-sm text-[var(--text)]/50">{item.title}</p>
                   </div>
                 </div>
-                <p className="text-white/70 leading-relaxed mb-6">“{item.quote}”</p>
-                <div className="flex items-center gap-2 text-brand-400 text-sm font-semibold">
+                <p className="text-[var(--text)]/70 leading-relaxed mb-6">“{item.quote}”</p>
+                <div className="flex items-center gap-2 text-[var(--primary)] text-sm font-semibold">
                   {Array.from({ length: item.rating }).map((_, index) => (
                     <span key={index}>★</span>
                   ))}
@@ -247,29 +249,29 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-center">
             <div>
               <p className="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Get in touch</p>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">Ready to start your tech journey?</h2>
-              <p className="text-white/60 leading-relaxed max-w-2xl mb-8">Contact our admissions team, request a course brochure, or book a free discovery call. We’re here to help you choose the path that fits your goals.</p>
+              <h2 className="text-4xl md:text-5xl font-[var(--text)] tracking-tight mb-6">Ready to start your tech journey?</h2>
+              <p className="text-[var(--text)]/60 leading-relaxed max-w-2xl mb-8">Contact our admissions team, request a course brochure, or book a free discovery call. We’re here to help you choose the path that fits your goals.</p>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-                  <p className="text-sm text-white/50">WhatsApp</p>
-                  <p className="mt-2 font-semibold text-white">+234 812 345 6789</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)]/5 p-6">
+                  <p className="text-sm text-[var(--text)]/50">WhatsApp</p>
+                  <p className="mt-2 font-semibold text-[var(--text)]">+234 812 345 6789</p>
                 </div>
-                <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-                  <p className="text-sm text-white/50">Email</p>
-                  <p className="mt-2 font-semibold text-white">hello@terrabyte.academy</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)]/5 p-6">
+                  <p className="text-sm text-[var(--text)]/50">Email</p>
+                  <p className="mt-2 font-semibold text-[var(--text)]">hello@terrabyte.academy</p>
                 </div>
               </div>
             </div>
-            <div className="rounded-[2.5rem] border border-white/10 bg-[#06102A] p-8 shadow-2xl shadow-brand-900/20">
+            <div className="rounded-[2.5rem] border border-[var(--muted)]/20 bg-[var(--surface)]/90 p-8 shadow-2xl shadow-[var(--primary)]/20">
               <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Quick contact</p>
               <div className="space-y-4">
-                <div className="rounded-3xl bg-white/5 p-5">
-                  <p className="text-white/60 text-sm">Send a message</p>
-                  <p className="mt-3 font-semibold text-white">Fill the online form and we&apos;ll reply in 24 hours.</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)]/5 p-5">
+                  <p className="text-[var(--text)]/60 text-sm">Send a message</p>
+                  <p className="mt-3 font-semibold text-[var(--text)]">Fill the online form and we&apos;ll reply in 24 hours.</p>
                 </div>
-                <div className="rounded-3xl bg-white/5 p-5">
-                  <p className="text-white/60 text-sm">Call admissions</p>
-                  <p className="mt-3 font-semibold text-white">+234 812 345 6789</p>
+                <div className="rounded-3xl border border-[var(--muted)]/20 bg-[var(--surface)]/5 p-5">
+                  <p className="text-[var(--text)]/60 text-sm">Call admissions</p>
+                  <p className="mt-3 font-semibold text-[var(--text)]">+234 812 345 6789</p>
                 </div>
               </div>
             </div>
@@ -277,19 +279,20 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 px-6 md:px-12 py-16 bg-[#020712]">
-        <div className="max-w-7xl mx-auto grid gap-12 lg:grid-cols-4">
+      <footer className="border-t border-[var(--muted)]/20 px-6 md:px-12 py-16 bg-[var(--navy)]">
+        <div className="max-w-7xl mx-auto grid gap-6 lg:grid-cols-5">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl overflow-hidden border border-[var(--muted)]/20 bg-[var(--surface)]/5 flex items-center justify-center">
                 <img src="/terrabytelogo.png" alt="Terrabyte Academy logo" className="h-full w-full object-contain" />
               </div>
               <div>
-                <p className="font-bold text-white">Terrabyte Academy</p>
-                <p className="text-sm text-white/50">RC: 9099630 </p>
+                <p className="font-bold text-white text-lg">
+                  TERRA<span className="text-brand-400">BYTE</span> ACADEMY
+                </p>
+                <p className="text-sm text-white/60">RC: 9099630</p>
               </div>
             </div>
-          
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Company</p>
@@ -301,32 +304,32 @@ export default function HomePage() {
             </div>
   
           </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Contact Info</p>
-            <div className="space-y-3 text-sm text-white/50">
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-2">Contact Info</p>
+            <div className="space-y-1.5 text-sm text-white/50">
               <p className="block">Email: <a href="mailto:hello@terrabyte.academy" className="hover:text-brand-400">hello@terrabyte.academy</a></p>
               <p className="block">Phone: <a href="tel:+2348123456789" className="hover:text-brand-400">+234 812 345 6789</a></p>
             </div>
           </div>
   
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Resources</p>
-            <div className="space-y-3 text-sm text-white/50">
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-2">Resources</p>
+            <div className="space-y-1.5 text-sm text-white/50">
               <Link href="/public/events" className="block hover:text-white">Events</Link>
               <Link href="/public/verify-certificate" className="block hover:text-white">Verify Certificate</Link>
               <Link href="#testimonials" className="block hover:text-white">Testimonials</Link>
               <Link href="#" className="block hover:text-white">Help Center</Link>
             </div>
           </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-4">Social</p>
-            <div className="flex flex-wrap gap-3">
-              <a href="https://wa.me/2348123456789" className="rounded-3xl bg-white/5 px-4 py-3 text-sm text-white/80 hover:bg-brand-500/10 transition">WhatsApp</a>
-              <Link href="#contact" className="rounded-3xl bg-white/5 px-4 py-3 text-sm text-white/80 hover:bg-brand-500/10 transition">Contact</Link>
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-400 mb-2">Social</p>
+            <div className="flex flex-wrap gap-2">
+              <a href="https://wa.me/2348123456789" className="rounded-3xl bg-[var(--navy)]/20 px-3 py-2 text-sm text-[var(--text)]/60 hover:bg-[var(--navy)]/30 transition">WhatsApp</a>
+              <Link href="#contact" className="rounded-3xl bg-[var(--navy)]/20 px-3 py-2 text-sm text-[var(--text)]/60 hover:bg-[var(--navy)]/30 transition">Contact</Link>
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/30">© {new Date().getFullYear()} Terrabyte Academy. All rights reserved.</div>
+        <div className="mt-12 border-t border-[var(--muted)]/20 pt-8 text-center text-xs text-[var(--text)]/50 bg-[var(--navy)]">© {new Date().getFullYear()} Terrabyte Academy. All rights reserved.</div>
       </footer>
     </div>
   );

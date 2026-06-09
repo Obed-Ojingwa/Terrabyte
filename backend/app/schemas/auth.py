@@ -1,13 +1,25 @@
-from pydantic import BaseModel, EmailStr, Field
+# C:\Users\Melody\Documents\workinprog\terrabyte\backend\app\schemas\auth.py
+from pydantic import BaseModel, EmailStr, field_validator
+import re
 
 
 class RegisterRequest(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=8)
-    first_name: str = Field(min_length=1, max_length=100)
-    middle_name: str | None = None
-    last_name: str = Field(min_length=1, max_length=100)
-    phone: str
+    password: str
+    first_name: str
+    last_name: str
+    phone: str | None = None
+
+    @field_validator("password")
+    @classmethod
+    def password_strength(cls, v: str) -> str:
+        if len(v) < 8:
+            raise ValueError("Password must be at least 8 characters")
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain an uppercase letter")
+        if not re.search(r"\d", v):
+            raise ValueError("Password must contain a digit")
+        return v
 
 
 class LoginRequest(BaseModel):
@@ -19,8 +31,23 @@ class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
-    user: dict
 
 
 class RefreshRequest(BaseModel):
     refresh_token: str
+
+
+class UserOut(BaseModel):
+    id: int
+    email: str
+    first_name: str
+    last_name: str
+    phone: str | None
+    avatar_url: str | None
+    bio: str | None
+    is_active: bool
+    is_verified: bool
+    role: str
+
+    class Config:
+        from_attributes = True
